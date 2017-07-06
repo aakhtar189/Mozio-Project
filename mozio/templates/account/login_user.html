@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Login{% endblock %}
+
+{% block extra_js %}
+<script src='{% static "js/validator.min.js" %}'></script>
+<script type="text/javascript">
+    var parseTitle = document.title.split('|')[1];
+    $(function(){
+
+        $("#id_email").on('focus',function(){
+            $("#email_error").hide()
+        });
+
+        $("#id_registered_email").on('focus',function(){
+            $(".cs-error").hide()
+        });
+
+        $("#id_password").on('focus',function(){
+            $("#pass_error").hide()
+        });
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!--Login form-->
+        <div id="loginbox" class="col-md-6 col-md-offset-3 col-sm-12" style="margin-top: 20px;">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #0747A6; color: #fff;">
+                    <div class="panel-title">Sign In</div>
+                </div>
+                <div class="panel-body" style="margin-top: 1px">
+                    <div class="alert alert-error alert-warning" style="{% if form.non_field_errors and not form.email.errors %}display: block;{% elif error_message %}display: block; {% else %}display: none;{% endif %}">
+                        <a class="close" data-dismiss="alert" href="#">×</a>
+                        {% if form.non_field_errors and not form.email.errors %}
+                            <small class="cs-error">{{ form.non_field_errors.as_text }}</small>
+                        {% elif error_message %}
+                            <small class="cs-error">{{ error_message }}</small>
+                        {% endif %}
+                    </div>
+                    <form id="loginform" class="form-horizontal"  data-toggle="validator" role="form" method="post" action="{% url 'login_user' %}" style="margin-top: -15px;">
+                        {% csrf_token %}
+                        <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                            <div class="col-sm-12">
+                                <label for="id_email" class="control-label"><h5><strong>*Email</strong></h5></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    {{ form.email }}
+                                </div>
+                                <div>
+                                    <small id="email_error" class="cs-error">{{ form.email.errors.as_text }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group {% if form.password.errors %}has-error{% endif %}" style="margin-top: -10px;">
+                            <div class="col-sm-12">
+                                <label for="id_password" class="control-label"><h5><strong>*Password</strong></h5></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    {{ form.password }}
+                                </div>
+                                <div>
+                                    <small id="pass_error" class="cs-error">{{ form.password.errors.as_text }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-12 controls">
+                                      <input class="btn btn-primary btn-md" type="submit" value="Login"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Create Supplier{% endblock %}
+
+
+{% block extra_js %}
+<script src='{% static "js/validator.min.js" %}'></script>
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.css' %}" media="screen" charset="utf-8">
+
+    <style type="text/css">
+        
+    </style>
+    <div class="container-fluid">
+        <div id="addsupplier" class="col-md-offset-2 col-md-8" style="margin-top: 20px;">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #0747A6; color: #fff;">
+                    <div class="panel-title">{% if current == "edit_property" %}Update Property{% else %} Add Supplier {% endif %}</div>
+                </div>
+                <div class="panel-body" style="margin-top: 1px">
+                    <form id="entityform" class="form-horizontal"  data-toggle="" role="form" method="post" style="margin-top: 20px;">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-2">
+                                    <label class="control-label" for="name">*Name :</label>
+                                </div>
+                                <div class="col-md-7">
+                                    {{ form.name }}
+                                    <div class="help-block with-errors"></div>
+                                    {% if form.name.errors %}
+                                        <small class="cs-error">{{ form.name.errors.as_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-2">
+                                    <label class="control-label" for="email">*Email :</label>
+                                </div>
+                                <div class="col-md-7">
+                                    {% if supplier_obj.user.email %}
+                                        <input type="text" name="email" class="form-control" value="{{ supplier_obj.user.email }}" readonly="true">
+                                    {% else %}
+                                        {{ form.email }}
+                                    {% endif %}
+                                    <div class="help-block with-errors"></div>
+                                    {% if form.email.errors %}
+                                        <small class="cs-error">{{ form.email.errors.as_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-2">
+                                    <label class="control-label" for="phone_no">*Phone No :</label>
+                                </div>
+                                <div class="col-md-7">
+                                    {{ form.phone_no }}
+                                    <div class="help-block with-errors"></div>
+                                    {% if form.phone_no.errors %}
+                                        <small class="cs-error">{{ form.phone_no.errors.as_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-2">
+                                    <label class="control-label" for="language">*Language :</label>
+                                </div>
+                                <div class="col-md-7">
+                                    {{ form.language }}
+                                    <div class="help-block with-errors"></div>
+                                    {% if form.language.errors %}
+                                        <small class="cs-error">{{ form.language.errors.as_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-2">
+                                    <label class="control-label" for="language">*Currency :</label>
+                                </div>
+                                <div class="col-md-7">
+                                    {{ form.currency }}
+                                    <div class="help-block with-errors"></div>
+                                    {% if form.currency.errors %}
+                                        <small class="cs-error">{{ form.currency.errors.as_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-2">
+                                    <input class="btn btn-primary btn-md" type="submit" value="{% if current == 'edit_property' %}Add Supplier{% else %} Add Supplier {% endif %}"/>
+                                </div>
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

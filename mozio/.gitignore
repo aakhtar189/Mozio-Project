@@ -1,0 +1,8 @@
+*.pyc
+db.db
+db.sqlite3
+media
+local_settings
+.sqlite3
+/media
+/venv/

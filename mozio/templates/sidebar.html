@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>Dash Board</h3>
+        <strong>DB</strong>
+    </div>
+    <ul class="list-unstyled components">
+        <li>
+            <a href="/"><i class="glyphicon glyphicon-home"></i>Projects</a>
+        </li>
+        <!-- <li>
+            <a href="#"><i class="glyphicon glyphicon-briefcase"></i>Markups</a>
+        </li>
+        <li>
+            <a href="#id_location_modal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-map-marker"></i>Location</a>
+        </li>
+        <li>
+            <a href="#id_Wbs" role="button"  data-toggle="modal"><i class="glyphicon glyphicon-duplicate"></i>Wbs</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-send"></i>Contacts</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-link"></i>Alternates</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-th-list"></i>Item List</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-time"></i>Estimate Details</a>
+        </li> -->
+        {% if not current == "current" %}
+            <li class="CTAs">    
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="glyphicon glyphicon-duplicate"></i>
+                    View Takeoffs
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <form style="margin-left: 30px;" method="POST" id="view_mode_form">
+                        {% csrf_token %}
+                        <div class="radio">
+                            <label><input type="radio" name="view_mode" {% if current == "item" %}checked="checked" {% endif %} value="view_items"><small>List by Item</small></label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="view_mode" {% if current == "assembly" %}checked="checked" {% endif %}value="view_assembly"><small>View by Assembly</small> </label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="view_mode" {% if current == "asset_year" %}checked="checked" {% endif %} value="view_asset_year"><small>View by Asset year</small></label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="view_mode" {% if current == "asset_price" %}checked="checked" {% endif %} value="view_asset_price"><small>View by Asset Price</small></label>
+                        </div>
+                    </form>
+                </ul>
+            </li>
+        {% endif %}    
+    </ul>
+
+    <!-- <ul class="list-unstyled CTAs">
+        <div data-toggle="collapse" class="userinfo" data-target="#user_info">
+            <img src="{% static 'images/Salman-Khan.jpg' %}" style="border-radius: 50px; width: 50px; height: 50px;"  >&nbsp;My Account<span class="caret"></span>
+        </div>
+        <div id="user_info" class="collapse">
+            <li><a href="#">Edit Profile</a></li>
+            <li><a href="{% url 'logout_user' %}">Logout</a></li>
+        </div>
+    </ul> -->
+</nav>
